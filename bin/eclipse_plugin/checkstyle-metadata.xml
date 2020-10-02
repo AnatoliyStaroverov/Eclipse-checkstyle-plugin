@@ -3,12 +3,12 @@
 "-//eclipse-cs//DTD Check Metadata 1.1//EN"
 "http://eclipse-cs.sourceforge.net/dtds/checkstyle-metadata_1_1.dtd">
 <checkstyle-metadata>
-    <rule-group-metadata name="demo checks"  priority="1600">
+    <rule-group-metadata name="milestone 1 checks"  priority="1600">
         <description>%MyCustomChecks.desc</description>
 
-        <rule-metadata name="%AntiHungarian.name" internal-name="AntiHungarian" parent="TreeWalker">
-            <alternative-name internal-name="eclipe_plugin.AntiHungarianCheck" />
-            <description>%AntiHungarian.desc</description>
+        <rule-metadata name="%NumberOfCommets.name" internal-name="eclipse_plugin.NumberOfCommetsCheck" parent="TreeWalker">
+            <alternative-name internal-name="eclipe_plugin.NumberOfCommetsCheck" />
+            <description>%NumberofCommets.desc</description>
             
         </rule-metadata>
     </rule-group-metadata>

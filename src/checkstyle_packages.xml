@@ -4,6 +4,7 @@
     "-//Checkstyle//DTD Package Names Configuration 1.0//EN"
     "http://checkstyle.org/dtds/packages_1_0.dtd">
 
+
 <checkstyle-packages>
     <!--
       Define the Java packages where your custom Checkstyle module classes (checks, filters) reside here.
