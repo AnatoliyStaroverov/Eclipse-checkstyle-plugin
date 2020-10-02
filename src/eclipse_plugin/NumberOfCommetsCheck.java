@@ -30,15 +30,15 @@ public class NumberOfCommetsCheck extends AbstractCheck {
 	  	// public final void setTokens(String... strRep)
 	  @Override
 	    public void visitToken(DetailAST aAST) {
-	      DetailAST objBlock = aAST.findFirstToken(TokenTypes.COMMENT_CONTENT);
+	      //DetailAST objBlock = aAST.findFirstToken(TokenTypes.COMMENT_CONTENT);
 		  count++;
 		  //ReportCommentDetection( objBlock,"found comments");
 	       
 	    }
 	 
-	  private void ReportCommentDetection(DetailAST aAST, String comment) {
-		  log(aAST.getLineNo(),comment);
-	  }
+	  //private void ReportCommentDetection(DetailAST aAST, String comment) {
+		  //log(aAST.getLineNo(),comment);
+	 // }
 	  
 	  	// Make the compile check for commits.
 	  @Override

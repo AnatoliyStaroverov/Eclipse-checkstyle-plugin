@@ -3,7 +3,44 @@ import com.puppycrawl.tools.checkstyle.api.*;
 
 public class HalsteadLengthCheck extends AbstractCheck {
 	
-	int count = 0;
+	  int count = 0;
+	
+	
+	 /*  Array for importing all the operator types in Java.
+	  *  Used "https://www.javatpoint.com/operators-in-java" 
+	  *  as a reference.
+	  * */
+	int[] operatorTokens = {
+			
+		 /* Unary Operator Type*/	
+		TokenTypes.POST_INC,TokenTypes.POST_DEC,TokenTypes.DEC,TokenTypes.INC,
+		TokenTypes.LNOT,TokenTypes.LNOT,
+		
+		/* Arithmetic Operator type */
+		TokenTypes.STAR,TokenTypes.DIV,TokenTypes.MOD,TokenTypes.PLUS,TokenTypes.MINUS,
+		TokenTypes.BSR,TokenTypes.SR,TokenTypes.SL,
+		
+		/* Relational Operator type */
+		TokenTypes.LT,TokenTypes.GT,TokenTypes.LE,TokenTypes.GE,
+		TokenTypes.LITERAL_INSTANCEOF,TokenTypes.EQUAL,TokenTypes.NOT_EQUAL,
+		
+		/* Bitwise */
+		TokenTypes.BAND,TokenTypes.BXOR,TokenTypes.LOR,
+		
+		/* Logical Operator type */
+		TokenTypes.LAND,TokenTypes.LOR,
+		
+		/* Ternary  Operator type */
+		TokenTypes.QUESTION,TokenTypes.EOF,
+		
+		/* Assignment  Operator type  */
+		TokenTypes.ASSIGN,TokenTypes.BAND_ASSIGN,TokenTypes.BOR_ASSIGN,
+		TokenTypes.BSR_ASSIGN,TokenTypes.BXOR_ASSIGN,TokenTypes.DIV_ASSIGN,
+		TokenTypes.MINUS_ASSIGN,TokenTypes.MOD_ASSIGN,TokenTypes.PLUS_ASSIGN,
+		TokenTypes.SL_ASSIGN,TokenTypes.SR_ASSIGN,TokenTypes.STAR_ASSIGN
+		
+	   };	
+	
 	
 	  @Override
 	    public void beginTree(DetailAST rootAST) {
@@ -14,32 +51,29 @@ public class HalsteadLengthCheck extends AbstractCheck {
 	
 	 @Override
 	    public int[] getDefaultTokens() {
-	        return new int[] {TokenTypes.COMMENT_CONTENT};
+	        return operatorTokens;
 	    }
 	  
 	 @Override
 		public int[] getRequiredTokens() {
 			// TODO Auto-generated method stub
-			return new int[0];
+			return  operatorTokens;
 		}
 	 
 	 @Override
 	    public void visitToken(DetailAST aAST) {
-	      DetailAST objBlock = aAST.findFirstToken(TokenTypes.COMMENT_CONTENT);
 		  count++;
-		  //ReportCommentDetection( objBlock,"found comments");
-	       
 	    }
 	 
 	 @Override
 		public int[] getAcceptableTokens() {
-			// TODO Auto-generated method stub
-			return new int[] {TokenTypes.COMMENT_CONTENT}; 
+			
+			return  operatorTokens; 
 		}
 	 
 	 @Override
 	    public void finishTree(DetailAST rootAST) {
-	       log(rootAST.getLineNo(),count+"");
+		 log(rootAST.getLineNo(),count+"");
 	    }
 
 	
