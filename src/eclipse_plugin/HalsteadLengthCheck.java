@@ -6,7 +6,7 @@ public class HalsteadLengthCheck extends AbstractCheck {
 	  int count = 0;
 	
 	
-	 /*  Array for importing all the operator types in Java.
+	 /*  Array for importing all the operator and operand types in Java.
 	  *  Used "https://www.javatpoint.com/operators-in-java" 
 	  *  as a reference.
 	  * */
@@ -37,9 +37,15 @@ public class HalsteadLengthCheck extends AbstractCheck {
 		TokenTypes.ASSIGN,TokenTypes.BAND_ASSIGN,TokenTypes.BOR_ASSIGN,
 		TokenTypes.BSR_ASSIGN,TokenTypes.BXOR_ASSIGN,TokenTypes.DIV_ASSIGN,
 		TokenTypes.MINUS_ASSIGN,TokenTypes.MOD_ASSIGN,TokenTypes.PLUS_ASSIGN,
-		TokenTypes.SL_ASSIGN,TokenTypes.SR_ASSIGN,TokenTypes.STAR_ASSIGN
+		TokenTypes.SL_ASSIGN,TokenTypes.SR_ASSIGN,TokenTypes.STAR_ASSIGN,
+		
+		/* operand */
+		TokenTypes.NUM_FLOAT,TokenTypes.NUM_LONG,TokenTypes.NUM_DOUBLE,TokenTypes.IDENT,
+		TokenTypes.NUM_INT
 		
 	   };	
+	
+		
 	
 	
 	  @Override
