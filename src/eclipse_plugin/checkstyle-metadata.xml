@@ -9,7 +9,11 @@
         <rule-metadata name="%NumberOfCommets.name" internal-name="eclipse_plugin.NumberOfCommetsCheck" parent="TreeWalker">
             <alternative-name internal-name="eclipe_plugin.NumberOfCommetsCheck" />
             <description>%NumberofCommets.desc</description>
-            
+        </rule-metadata>
+        
+        <rule-metadata name="%HalsteadLength.name" internal-name="eclipse_plugin.HalsteadLengthsCheck" parent="TreeWalker">
+            <alternative-name internal-name="eclipe_plugin.HalsteadLengthCheck" />
+            <description>%HalsteadLength.desc</description>
         </rule-metadata>
     </rule-group-metadata>
 </checkstyle-metadata>
