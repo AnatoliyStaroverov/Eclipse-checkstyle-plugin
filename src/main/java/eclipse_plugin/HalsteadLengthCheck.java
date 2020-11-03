@@ -46,7 +46,9 @@ public class HalsteadLengthCheck extends AbstractCheck {
 	   };	
 	
 		
-	
+	   public int getHalsteadLength() {
+		   return this.count;
+	   }
 	
 	  @Override
 	    public void beginTree(DetailAST rootAST) {
