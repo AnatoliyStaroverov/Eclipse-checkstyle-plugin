@@ -20,7 +20,6 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
-//@RunWith(PowerMockRunner.class)
 @PrepareForTest(DetailAST.class)
 public class NumberOfCommentsCheckTest {
 	
@@ -45,36 +44,46 @@ public class NumberOfCommentsCheckTest {
 		assertArrayEquals(expectedTokens, test.getRequiredTokens());
 	}
 	
-	// Test function for only accepting the desired tokens.
-	@Test
-	public void GetAcceptableTokensTest() {
-		NumberOfCommetsCheck test = new NumberOfCommetsCheck();
-
-		assertArrayEquals(expectedTokens, test.getAcceptableTokens());
-	}
-	
-	// Test for single comments 
-	@Test
-	public void SingleCommentTest() {
+	@Test // visit token test
+	public void VisitTokenTest() {
 		NumberOfCommetsCheck test = new NumberOfCommetsCheck();
 		DetailAST ast = PowerMockito.mock(DetailAST.class);
 		test.beginTree(ast); 
-		doReturn(TokenTypes.SINGLE_LINE_COMMENT).when(ast).getType();
 		test.visitToken(ast);
 		test.visitToken(ast);
 		test.visitToken(ast);
 		assertEquals(3, test.getCount());
 	}
 	
-	// Test for block comments
-	// Test for no comments 
-	
-	
-	
-	
+	@Test // Test function for only accepting the desired tokens.
+	public void GetAcceptableTokensTest() {
+		NumberOfCommetsCheck test = new NumberOfCommetsCheck();
 
+		assertArrayEquals(expectedTokens, test.getAcceptableTokens());
+	}
 	
+	@Test // Test for more than one comment.
+	public void MultiCommentTest() {
+		NumberOfCommetsCheck test = new NumberOfCommetsCheck();
+		DetailAST ast = PowerMockito.mock(DetailAST.class);
+		test.beginTree(ast); 
+		
+		doReturn(TokenTypes.SINGLE_LINE_COMMENT).when(ast).getType();
+		test.visitToken(ast);
+		doReturn(TokenTypes.SINGLE_LINE_COMMENT).when(ast).getType();
+		test.visitToken(ast);
+		doReturn(TokenTypes.SINGLE_LINE_COMMENT).when(ast).getType();
+		test.visitToken(ast);
+		doReturn(TokenTypes.SINGLE_LINE_COMMENT).when(ast).getType();
+		test.visitToken(ast);
+		assertEquals(4, test.getCount());
+	}
 	
-	
-
+	@Test // Test for no comments 
+	public void NoCommentTest() { //test no comments
+		NumberOfCommetsCheck test = new NumberOfCommetsCheck();
+		DetailAST ast = PowerMockito.mock(DetailAST.class);
+		test.beginTree(ast); 
+		assertEquals(0, test.getCount());
+	}
 }
