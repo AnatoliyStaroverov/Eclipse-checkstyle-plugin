@@ -26,6 +26,11 @@
             <description>%NumberOfLoops.desc</description>
         </rule-metadata>
         
+        <rule-metadata name="%NumberOfOperands.name" internal-name="NumberOfOperandsCheck" parent="TreeWalker">
+            <alternative-name internal-name="eclipe_plugin.NumberOfOperands" />
+            <description>%NumberOfOperands.desc</description>
+        </rule-metadata>
+        
         
         
     </rule-group-metadata>
