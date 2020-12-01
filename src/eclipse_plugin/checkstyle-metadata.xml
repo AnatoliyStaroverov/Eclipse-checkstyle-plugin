@@ -21,6 +21,12 @@
             <description>%LinesOfComment1.desc</description>
         </rule-metadata>
         
+          <rule-metadata name="%NumberOfLoops.name" internal-name="NumberOfLoopsCheck" parent="TreeWalker">
+            <alternative-name internal-name="eclipe_plugin.NumberOfLoops" />
+            <description>%NumberOfLoops.desc</description>
+        </rule-metadata>
+        
+        
         
     </rule-group-metadata>
 </checkstyle-metadata>
