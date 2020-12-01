@@ -31,6 +31,11 @@
             <description>%NumberOfOperands.desc</description>
         </rule-metadata>
         
+         <rule-metadata name="%NumberOfOperator.name" internal-name="NumberOfOperatorCheck" parent="TreeWalker">
+            <alternative-name internal-name="eclipe_plugin.NumberOfOperator" />
+            <description>%NumberOfOperator.desc</description>
+        </rule-metadata>
+        
         
         
     </rule-group-metadata>
