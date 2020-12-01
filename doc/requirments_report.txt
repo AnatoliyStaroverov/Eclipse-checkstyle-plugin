@@ -1,0 +1,2 @@
+
+1. Add couple paragraphs about class based testing.
