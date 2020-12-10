@@ -17,25 +17,15 @@ import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FileContents;
 import com.puppycrawl.tools.checkstyle.api.FileText;
 
-
-import eclipse_plugin.NumberOfLoopsCheck;
+import Checks.NumberOfLoopsCheck;
 
 public class TestEngine {
 	
 	
-	
-	// Test_Files/LoopTest.java
 	@Test
 	void test() throws IOException, CheckstyleException {
 		
-		// Set root of project as start of path to read files.
-		//ClassLoader classLoader = getClass().getClassLoader();
-		//File file = new File(classLoader.getResource("filefolder/file.xml").getFile());
 		
-		
-		// Build File
-		//ClassLoader classLoader = getClass().getClassLoader();
-		//File file = new File(classLoader.getResource("../Test_Files/LoopTest.java").getFile());
 		String filePath = "c:/Users/anato/eclipse-workspace/eclipse_plugin/src/test/java/Test_Files/";
 		File file = new File(filePath + "LoopTest.java");
 		FileText ft = new FileText(file,"UTF-8");
@@ -61,10 +51,6 @@ public class TestEngine {
 		}
 		
 		
-		
-		
-		
-	
 		// Initialize Local Variables in Check
 		check.beginTree(root);
 		
