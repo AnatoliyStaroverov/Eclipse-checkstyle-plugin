@@ -15,7 +15,6 @@ import org.junit.Test;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
-import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
@@ -30,7 +29,7 @@ public class NumberOfCommentsCheckTest {
 	@Test
 	public void BeginTreeTest() {
 		NumberOfCommetsCheck test = new NumberOfCommetsCheck();
-		DetailAST ast = PowerMockito.mock(DetailAST.class);
+		DetailAST ast = mock(DetailAST.class);
 
 		test.beginTree(ast);
 		assertEquals(0, test.getCount());
