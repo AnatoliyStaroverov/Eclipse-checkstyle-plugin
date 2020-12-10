@@ -21,13 +21,17 @@ public class NumberOfLoopsCheck extends AbstractCheck {
 	
 	@Override
 	public int[] getAcceptableTokens() {
-		return getRequiredTokens();
+		return new int[] { 
+				TokenTypes.LITERAL_FOR, 
+				TokenTypes.LITERAL_WHILE, 
+				TokenTypes.LITERAL_DO, 
+				};
 	}
 
-	@Override
-	public boolean isCommentNodesRequired() {
-		return true;
-	}
+	//@Override
+	//public boolean isCommentNodesRequired() {
+	//	return true;
+	//}
 
 	@Override
 	public int[] getRequiredTokens() {
@@ -54,6 +58,7 @@ public class NumberOfLoopsCheck extends AbstractCheck {
 	@Override
 	public void visitToken(DetailAST ast) {
 
+		
 		switch (ast.getType()) {
 		case TokenTypes.LITERAL_FOR:
 			loopCount++;
@@ -70,6 +75,7 @@ public class NumberOfLoopsCheck extends AbstractCheck {
 			do_count++;
 			break;
 		}
+		System.out.println("loop visit token "+ loopCount);
 	}
 
 	public int getLoopCount() {
@@ -79,7 +85,9 @@ public class NumberOfLoopsCheck extends AbstractCheck {
 	
 	public void finishTree(DetailAST rootAST) {
 		try {
-			log(0, " loop count: {0}. You haveexceeded loop max", loopCount);
+			log(0, " loop count: {0}. You have exceeded loop max", loopCount);
+			System.out.println("loop debug"+ loopCount);
+			
 		} catch (NullPointerException e) {
 			System.out.println("Error in  treewalker!");
 		}
