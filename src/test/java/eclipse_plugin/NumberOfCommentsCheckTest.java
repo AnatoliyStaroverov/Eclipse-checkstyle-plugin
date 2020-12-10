@@ -47,7 +47,7 @@ public class NumberOfCommentsCheckTest {
 	@Test // visit token test
 	public void VisitTokenTest() {
 		NumberOfCommetsCheck test = new NumberOfCommetsCheck();
-		DetailAST ast = PowerMockito.mock(DetailAST.class);
+		DetailAST ast = mock(DetailAST.class);
 		test.beginTree(ast); 
 		test.visitToken(ast);
 		test.visitToken(ast);
@@ -58,14 +58,13 @@ public class NumberOfCommentsCheckTest {
 	@Test // Test function for only accepting the desired tokens.
 	public void GetAcceptableTokensTest() {
 		NumberOfCommetsCheck test = new NumberOfCommetsCheck();
-
 		assertArrayEquals(expectedTokens, test.getAcceptableTokens());
 	}
 	
 	@Test // Test for more than one comment.
 	public void MultiCommentTest() {
 		NumberOfCommetsCheck test = new NumberOfCommetsCheck();
-		DetailAST ast = PowerMockito.mock(DetailAST.class);
+		DetailAST ast = mock(DetailAST.class);
 		test.beginTree(ast); 
 		
 		doReturn(TokenTypes.SINGLE_LINE_COMMENT).when(ast).getType();
@@ -82,7 +81,7 @@ public class NumberOfCommentsCheckTest {
 	@Test // Test for no comments 
 	public void NoCommentTest() { //test no comments
 		NumberOfCommetsCheck test = new NumberOfCommetsCheck();
-		DetailAST ast = PowerMockito.mock(DetailAST.class);
+		DetailAST ast = mock(DetailAST.class);
 		test.beginTree(ast); 
 		assertEquals(0, test.getCount());
 	}
