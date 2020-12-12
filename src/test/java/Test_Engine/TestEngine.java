@@ -2,10 +2,11 @@ package Test_Engine;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Hashtable;
+//import java.util.Hashtable;
+import java.util.*; 
 
-import org.junit.jupiter.api.Test;
-import static org.junit.Assert.assertTrue;
+//import org.junit.jupiter.api.Test;
+//import static org.junit.Assert.assertTrue;
 
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import com.puppycrawl.tools.checkstyle.DefaultContext;
@@ -17,29 +18,32 @@ import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FileContents;
 import com.puppycrawl.tools.checkstyle.api.FileText;
 
-import Checks.NumberOfLoopsCheck;
+
 
 public class TestEngine {
 	
+	private String filePath;
+	private String fileName;
+	AbstractCheck check;
 	
-	@Test
-	void test() throws IOException, CheckstyleException {
+	public TestEngine(String pathname, String filename,AbstractCheck testingCheck ) {
+		filePath = pathname;
+		fileName = filename;
+		check = testingCheck;
+	}
+	
+	public void RunTestCase() throws IOException, CheckstyleException {
 		
-		
-		String filePath = "c:/Users/anato/eclipse-workspace/eclipse_plugin/src/test/java/Test_Files/";
-		File file = new File(filePath + "LoopTest.java");
+		File file = new File(filePath + fileName);
 		FileText ft = new FileText(file,"UTF-8");
 		FileContents fc = new FileContents(ft);
 		
 		// Initialize Intended Check
-		NumberOfLoopsCheck check = new NumberOfLoopsCheck();
 		check.setFileContents(fc);
 		
 		// Configure Check
 		check.configure(new DefaultConfiguration("Local"));
 		check.contextualize(new DefaultContext());
-		
-		
 		
 		// Fill AST with FileContents
 		DetailAST root;
@@ -50,15 +54,14 @@ public class TestEngine {
 			root = JavaParser.parse(fc);
 		}
 		
-		
 		// Initialize Local Variables in Check
 		check.beginTree(root);
 		
 		// Visit Each Token in Tree
 		helper(check,root);
 		
-		Hashtable<String,Integer> results = new Hashtable<String,Integer>(); 
-		results.put("loopTest", check.getLoopCount());
+		//Hashtable<String,Integer> results = new Hashtable<String,Integer>(); 
+		//results.put("loopTest", check.getResults());
 		
 		// Complete tree and display intended logs to user.
 		check.finishTree(root);
@@ -68,20 +71,37 @@ public class TestEngine {
 		//}
 		
 		
-		
 		// Verify Results
-		assertTrue(results.get("loopTest") ==  3);
-		System.out.println(results.get("loopTest"));
+		//assertTrue(results.get("loopTest") ==  3);
+		//System.out.println(results.get("loopTest"));
 		
 	}
 	
 	
 	public void helper(AbstractCheck b, DetailAST a) {
-		System.out.println(" in helper engine function (not loop)");
 		
+		// get allowed tokens from check
+		int[] allowedTokens = check.getAcceptableTokens();
+		
+
+		List<Integer> intList = new ArrayList<Integer>(allowedTokens.length);
+		for (int i : allowedTokens)
+		{
+		    intList.add(i);
+		}
+		
+		
+		
+		
+		// Condition for nodes in DetailAST
 		while(a != null) {
-			System.out.println(" in helper engine function (in loop)");
-			b.visitToken(a);
+			
+			
+			if(intList.contains(a.getType())) {
+				b.visitToken(a);
+			}
+			
+			
 			helper(b,a.getFirstChild());
 			a = a.getNextSibling();
 		}

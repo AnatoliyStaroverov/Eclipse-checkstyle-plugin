@@ -34,6 +34,11 @@ public class NumberOfLoopsCheck extends AbstractCheck {
 	//}
 
 	@Override
+	public boolean isCommentNodesRequired() {
+		return true;
+	}
+	
+	@Override
 	public int[] getRequiredTokens() {
 		return new int[] { 
 				TokenTypes.LITERAL_FOR, 

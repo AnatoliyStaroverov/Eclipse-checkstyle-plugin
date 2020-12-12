@@ -16,11 +16,19 @@ public class LinesOfCommentCheck extends AbstractCheck {
 		case TokenTypes.SINGLE_LINE_COMMENT:
 			lineCount++;
 			break;
-
+			
 		case TokenTypes.BLOCK_COMMENT_BEGIN:
+			// this takes account for the begining */
 			lineCount++;
-			lineCount += ast.getChildCount();
+			
+			// find end of comment line and the begining and subtract.
+			// to get rest of block lines.
+			int commentStart =  ast.getLineNo();
+			int commentEnd = ast.findFirstToken(TokenTypes.BLOCK_COMMENT_END).getLineNo();
+			lineCount += commentEnd - commentStart;
 			break;
+			
+		
 		}
 	}
 	

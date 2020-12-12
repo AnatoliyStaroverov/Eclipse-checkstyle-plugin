@@ -10,7 +10,7 @@ public class NumberOfOperatorCheck extends AbstractCheck {
 			
 			 /* Unary Operator Type*/	
 			TokenTypes.POST_INC,TokenTypes.POST_DEC,TokenTypes.DEC,TokenTypes.INC,
-			TokenTypes.LNOT,TokenTypes.LNOT,
+			TokenTypes.LNOT,TokenTypes.BNOT,TokenTypes.UNARY_MINUS,TokenTypes.UNARY_PLUS,
 			
 			/* Arithmetic Operator type */
 			TokenTypes.STAR,TokenTypes.DIV,TokenTypes.MOD,TokenTypes.PLUS,TokenTypes.MINUS,
@@ -21,7 +21,7 @@ public class NumberOfOperatorCheck extends AbstractCheck {
 			TokenTypes.LITERAL_INSTANCEOF,TokenTypes.EQUAL,TokenTypes.NOT_EQUAL,
 			
 			/* Bitwise */
-			TokenTypes.BAND,TokenTypes.BXOR,TokenTypes.LOR,
+			TokenTypes.BAND,TokenTypes.BXOR,TokenTypes.LOR,TokenTypes.BOR,
 			
 			/* Logical Operator type */
 			TokenTypes.LAND,TokenTypes.LOR,
@@ -35,9 +35,7 @@ public class NumberOfOperatorCheck extends AbstractCheck {
 			TokenTypes.MINUS_ASSIGN,TokenTypes.MOD_ASSIGN,TokenTypes.PLUS_ASSIGN,
 			TokenTypes.SL_ASSIGN,TokenTypes.SR_ASSIGN,TokenTypes.STAR_ASSIGN,
 			
-			/* operand */
-			TokenTypes.NUM_FLOAT,TokenTypes.NUM_LONG,TokenTypes.NUM_DOUBLE,TokenTypes.IDENT,
-			TokenTypes.NUM_INT
+			
 			
 		   };	
 	
@@ -64,6 +62,10 @@ public class NumberOfOperatorCheck extends AbstractCheck {
 		}
 	}
 
+	public int getResults() {
+		return operatorCount;
+	}
+	
 	public int getOperatorCount() {
 		return operatorCount;
 	}

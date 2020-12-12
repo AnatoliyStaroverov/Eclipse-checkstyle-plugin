@@ -6,7 +6,7 @@ import com.puppycrawl.tools.checkstyle.api.*;
 
 public class NumberOfCommetsCheck extends AbstractCheck {
 	
-	int count = 0;
+	int count;
 	
 	public int getCount() {
 		return this.count;
@@ -40,7 +40,9 @@ public class NumberOfCommetsCheck extends AbstractCheck {
 	  		return true;
 	  	}
 	  
-	 
+	 public int  getResults() {
+		return count;
+	 }
 	  
 	  @Override
 	    public void finishTree(DetailAST rootAST) {
