@@ -21,12 +21,12 @@ public class HalsteadLengthCheck extends AbstractCheck {
 
 		// getters operand count.
 		public int getOperandCount() {
-			return getOperandCount();
+			return operandCount.getOperandCount();
 		}
 
 		// getter for operator count.
 		public int getOperatorCount() {
-			return getOperatorCount();
+			return operatorCount.getOperatorCount();
 		}
 		
 		// Calculates Halstead length.
@@ -116,6 +116,7 @@ public class HalsteadLengthCheck extends AbstractCheck {
 
 		@Override
 		public void visitToken(DetailAST ast) {
+			
 			if (operatorTokens.contains(ast.getType())) {
 				operatorCount.visitToken(ast);
 			}
