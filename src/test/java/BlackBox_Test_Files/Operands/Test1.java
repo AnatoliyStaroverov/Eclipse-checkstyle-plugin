@@ -1,4 +1,4 @@
-//package BlackBox_Test_Files.Operands;  // two operands
+package BlackBox_Test_Files.Operands;  // two operands
 
 public class Test1 {  // one operand 
 
