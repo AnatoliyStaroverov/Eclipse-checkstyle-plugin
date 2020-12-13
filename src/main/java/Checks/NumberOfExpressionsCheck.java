@@ -14,12 +14,14 @@ public class NumberOfExpressionsCheck extends AbstractCheck {
 
 	@Override
 	public int[] getDefaultTokens() {
-		return new int[] { TokenTypes.EXPR };
+		return new int[] { TokenTypes.EXPR,
+							
+							};
 	}
 
 	@Override
 	public int[] getAcceptableTokens() {
-		return new int[] { TokenTypes.EXPR };
+		return new int[] { TokenTypes.EXPR, };
 	}
 
 
@@ -53,15 +55,21 @@ public class NumberOfExpressionsCheck extends AbstractCheck {
 	// until found.
 	private void countExpressionTokens(DetailAST ast) {
 		
-		
+		// If accepted token is found in tree.
 		if (ast.getChildCount() > 0) {
 
+			// Returns the number of direct child tokens that have the specified type.
 			expCount += ast.getChildCount(TokenTypes.EXPR);
 
+			//Get the first child of this AST.
 			DetailAST child = ast.getFirstChild();
 
+			// recursively call till child is empty
 			while (child != null) {
+				
 				countExpressionTokens(child);
+				
+				//Get the next sibling in line after this one.
 				child = child.getNextSibling();
 			}
 		}

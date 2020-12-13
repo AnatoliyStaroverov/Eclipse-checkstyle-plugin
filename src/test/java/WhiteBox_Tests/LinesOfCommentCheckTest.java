@@ -39,7 +39,7 @@ public class LinesOfCommentCheckTest {
 	}
 
 	@Test  // Test for no comments.
-	public void testCountCommentsCheck_No() { 
+	public void NoLineCommentTest() { 
 		LinesOfCommentCheck test = new LinesOfCommentCheck();
 		DetailAST ast = mock(DetailAST.class);
 
@@ -49,7 +49,7 @@ public class LinesOfCommentCheckTest {
 	}
 	
 	@Test // Test for single comments.
-	public void testCountCommentsCheck_Single() {
+	public void SingleLineCommentTest() {
 		LinesOfCommentCheck test = new LinesOfCommentCheck();
 		DetailAST ast = mock(DetailAST.class);
 
@@ -62,13 +62,17 @@ public class LinesOfCommentCheckTest {
 	}
 
 	@Test // Test for comments blocks
-	public void testCountCommentsCheck_Block() { 
+	public void BlockLineCommentTest() { 
 		LinesOfCommentCheck test = new LinesOfCommentCheck();
 		DetailAST ast = mock(DetailAST.class);
+		//DetailAST astSpy = spy(DetailAST.class);
 
 		test.beginTree(ast); 
 
 		doReturn(TokenTypes.BLOCK_COMMENT_BEGIN).when(ast).getType();
+		//doReturn(TokenTypes.BLOCK_COMMENT_END).when(ast).getType();
+		
+		
 		test.visitToken(ast);
 
 		assertEquals(1, test.getCount());
@@ -78,7 +82,7 @@ public class LinesOfCommentCheckTest {
 	public void testCountCommentsCheck4() {
 		
 		LinesOfCommentCheck test = new LinesOfCommentCheck();
-		DetailAST ast =mock(DetailAST.class);
+		DetailAST ast = mock(DetailAST.class);
 
 		test.beginTree(ast); 
 		

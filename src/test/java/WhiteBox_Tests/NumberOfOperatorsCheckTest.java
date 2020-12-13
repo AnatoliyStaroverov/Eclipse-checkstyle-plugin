@@ -15,9 +15,10 @@ public class NumberOfOperatorsCheckTest {
 	
 	int[] operatorTokens = {
 			
+
 			 /* Unary Operator Type*/	
 			TokenTypes.POST_INC,TokenTypes.POST_DEC,TokenTypes.DEC,TokenTypes.INC,
-			TokenTypes.LNOT,TokenTypes.LNOT,
+			TokenTypes.LNOT,TokenTypes.BNOT,TokenTypes.UNARY_MINUS,TokenTypes.UNARY_PLUS,
 			
 			/* Arithmetic Operator type */
 			TokenTypes.STAR,TokenTypes.DIV,TokenTypes.MOD,TokenTypes.PLUS,TokenTypes.MINUS,
@@ -28,7 +29,7 @@ public class NumberOfOperatorsCheckTest {
 			TokenTypes.LITERAL_INSTANCEOF,TokenTypes.EQUAL,TokenTypes.NOT_EQUAL,
 			
 			/* Bitwise */
-			TokenTypes.BAND,TokenTypes.BXOR,TokenTypes.LOR,
+			TokenTypes.BAND,TokenTypes.BXOR,TokenTypes.BOR,
 			
 			/* Logical Operator type */
 			TokenTypes.LAND,TokenTypes.LOR,
@@ -42,12 +43,9 @@ public class NumberOfOperatorsCheckTest {
 			TokenTypes.MINUS_ASSIGN,TokenTypes.MOD_ASSIGN,TokenTypes.PLUS_ASSIGN,
 			TokenTypes.SL_ASSIGN,TokenTypes.SR_ASSIGN,TokenTypes.STAR_ASSIGN,
 			
-			/* operand */
-			TokenTypes.NUM_FLOAT,TokenTypes.NUM_LONG,TokenTypes.NUM_DOUBLE,TokenTypes.IDENT,
-			TokenTypes.NUM_INT
-			
 		   };	
 
+	
 	@Test
 	public void testGetDefaultTokens() {
 		NumberOfOperatorCheck test = new NumberOfOperatorCheck();
@@ -69,7 +67,7 @@ public class NumberOfOperatorsCheckTest {
 		assertArrayEquals(operatorTokens, test.getRequiredTokens());
 	}
 
-	@Test // Tests for a single operator.
+	@Test // Tests for a single operator count and unite count.
 	public void testGetOperatorCount1() { 
 		NumberOfOperandsCheck test = new NumberOfOperandsCheck();
 		DetailAST ast = mock(DetailAST.class);
@@ -90,9 +88,9 @@ public class NumberOfOperatorsCheckTest {
 		DetailAST ast = mock(DetailAST.class);
 
 		test.beginTree(ast); 
-
-		doReturn(operatorTokens[0]).when(ast).getType();
+		doReturn(operatorTokens[1]).when(ast).getType();
 		doReturn("operator").when(ast).getText();
+		
 		for (int i = 0; i < 20; i++) { 
 			test.visitToken(ast);
 		}
@@ -103,7 +101,7 @@ public class NumberOfOperatorsCheckTest {
 
 	@Test // Test for nested unique operators and many operands.
 	public void testGetOperatorCount3() { 
-		NumberOfOperandsCheck test = new NumberOfOperandsCheck();
+		NumberOfOperandsCheck test = spy(new NumberOfOperandsCheck());
 		DetailAST ast = mock(DetailAST.class);
 
 		test.beginTree(ast); 
@@ -113,14 +111,14 @@ public class NumberOfOperatorsCheckTest {
 			doReturn(operator).when(ast).getType();
 			doReturn("operator" + operator).when(ast).getText();
 
-			for (int i = 0; i < 20; i++) { 
+			for (int i = 0; i < 10; i++) { 
 				test.visitToken(ast);
 			}
 
 			count++;
 		}
 
-		int finalNumber = count * 20;
+		int finalNumber = count * 10;
 
 		assertEquals(finalNumber, test.getOperandCount());
 		assertEquals(count, test.getOperandUniqueCount());

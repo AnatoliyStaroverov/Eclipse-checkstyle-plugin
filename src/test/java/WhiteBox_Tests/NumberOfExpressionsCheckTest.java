@@ -16,46 +16,51 @@ public class NumberOfExpressionsCheckTest {
 	DetailAST ast = mock(DetailAST.class);
 
 	@Test
-	public void testGetDefaultTokens() {
+	public void DefaultTokensTest() {
 		assertArrayEquals(new int[] { TokenTypes.EXPR }, expressioncheck.getDefaultTokens());
 	}
 
 	@Test
-	public void testGetAcceptableTokens() {
+	public void AcceptableTokensTest() {
 		assertArrayEquals(new int[] { TokenTypes.EXPR }, expressioncheck.getAcceptableTokens());
 	}
 
 	@Test
-	public void testGetRequiredTokens() {
+	public void RequiredTokensTest() {
 		assertArrayEquals(new int[0], expressioncheck.getRequiredTokens());
 	}
 
 	@Test // Test for single expression
-	public void testVisitTokenDetailAST1() {
+	public void SingleExpressionTest() {
 
 		expressioncheck.beginTree(ast);
 		doReturn(TokenTypes.EXPR).when(ast).getType();
 
 		expressioncheck.visitToken(ast);
 
-		assertEquals(1, expressioncheck.getCount());
+		assertEquals(0, expressioncheck.getCount());
 	}
 	
 	@Test // Test for multiple expressions.
-	public void testVisitTokenDetailAST2() {
+	public void NestedExpressionTest() {
 
 		expressioncheck.beginTree(ast);
+		doReturn(1).when(ast).getChildCount();
+		doReturn(1).when(ast).getChildCount(TokenTypes.EXPR);
 		
-		doReturn(TokenTypes.EXPR).when(ast).getType();
 		for (int i = 0; i < 10; i++) { 
-			expressioncheck.visitToken(ast);
+			expressioncheck.visitToken(ast);  // 10 
+			
+			for (int J = 0; J < 10; J++) { 
+				expressioncheck.visitToken(ast); // 100
+			}
 		}
 
-		assertEquals(10, expressioncheck.getCount());
+		assertEquals(110, expressioncheck.getCount());
 	}
 	
 	@Test // Test for no expressions.
-	public void testVisitTokenDetailAST3() {
+	public void NoExpressionTest() {
 		expressioncheck.beginTree(ast);
 
 		assertEquals(0, expressioncheck.getCount());

@@ -25,9 +25,8 @@ public class NumberOfCommentsCheckTest {
 	
 	int[] expectedTokens = { TokenTypes.COMMENT_CONTENT };
 	
-	/*  Tests the initialization of the NumberIfCommetsCheck class.
-	 *  Verifies that count is set to zero.  */
-	@Test
+	
+	@Test // Test initialization of count in Begin tree.
 	public void BeginTreeTest() {
 		NumberOfCommetsCheck test = new NumberOfCommetsCheck();
 		DetailAST ast = mock(DetailAST.class);
@@ -36,8 +35,8 @@ public class NumberOfCommentsCheckTest {
 		assertEquals(0, test.getCount());
 	}
 	
-	/* Tests that NumberIfCommetsCheck class has only required tokens.  */
-	@Test
+	
+	@Test // Test that it only accepts expected tokens.
 	public void GetRequiredTokensTest() {
 		NumberOfCommetsCheck test = new NumberOfCommetsCheck();
 
@@ -61,9 +60,10 @@ public class NumberOfCommentsCheckTest {
 		assertArrayEquals(expectedTokens, test.getAcceptableTokens());
 	}
 	
-	@Test // Test for more than one comment.
-	public void MultiCommentTest() {
+	@Test // Test for more than one  single comment.
+	public void MultiSingleCommentTest() {
 		NumberOfCommetsCheck test = new NumberOfCommetsCheck();
+		
 		DetailAST ast = mock(DetailAST.class);
 		test.beginTree(ast); 
 		
@@ -75,11 +75,12 @@ public class NumberOfCommentsCheckTest {
 		test.visitToken(ast);
 		doReturn(TokenTypes.SINGLE_LINE_COMMENT).when(ast).getType();
 		test.visitToken(ast);
+		
 		assertEquals(4, test.getCount());
 	}
 	
 	@Test // Test for no comments 
-	public void NoCommentTest() { //test no comments
+	public void NoCommentTest() {
 		NumberOfCommetsCheck test = new NumberOfCommetsCheck();
 		DetailAST ast = mock(DetailAST.class);
 		test.beginTree(ast); 

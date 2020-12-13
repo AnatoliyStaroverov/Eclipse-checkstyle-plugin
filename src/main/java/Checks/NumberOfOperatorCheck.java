@@ -21,7 +21,7 @@ public class NumberOfOperatorCheck extends AbstractCheck {
 			TokenTypes.LITERAL_INSTANCEOF,TokenTypes.EQUAL,TokenTypes.NOT_EQUAL,
 			
 			/* Bitwise */
-			TokenTypes.BAND,TokenTypes.BXOR,TokenTypes.LOR,TokenTypes.BOR,
+			TokenTypes.BAND,TokenTypes.BXOR,TokenTypes.BOR,
 			
 			/* Logical Operator type */
 			TokenTypes.LAND,TokenTypes.LOR,

@@ -28,14 +28,14 @@ public class NumberOfCommetsCheck extends AbstractCheck {
 		  return getDefaultTokens();
 		}
 	  
-	  	// public final void setTokens(String... strRep)
-	  @Override
+	  	
+	  @Override // add to count if found.
 	    public void visitToken(DetailAST aAST) {
 		  count++; 
 	    }
 	  
-	  	// Make the compile check for commits.
-	  @Override
+	  	
+	  @Override // Make the compile check for commits.
 	   public boolean isCommentNodesRequired() {
 	  		return true;
 	  	}
