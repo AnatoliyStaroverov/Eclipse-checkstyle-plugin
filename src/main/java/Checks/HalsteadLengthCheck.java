@@ -71,7 +71,8 @@ public class HalsteadLengthCheck extends AbstractCheck {
 		
 		// Calculates Halstead length.
 		public int calcHalsteadLength() {
-			return getOperandCount() +  getOperatorCount();
+			halsteadLength = getOperandCount() +  getOperatorCount();
+			return halsteadLength;
 		}
 		
 		// Creates array list from int array.
@@ -91,8 +92,6 @@ public class HalsteadLengthCheck extends AbstractCheck {
 		
 		@Override
 		public int[] getDefaultTokens() {
-			
-			
 			return halsteadTokens;
 		}
 

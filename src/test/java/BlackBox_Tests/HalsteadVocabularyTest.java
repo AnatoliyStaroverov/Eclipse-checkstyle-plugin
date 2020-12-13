@@ -28,7 +28,7 @@ public class HalsteadVocabularyTest {
 			e.printStackTrace();
 		}
 
-		assertEquals(12, check.getUniqueOperatorCount(),0.1); 
+		assertEquals(7.0, check.getUniqueOperatorCount(),0.1); 
     }
 	
 	
@@ -44,7 +44,7 @@ public class HalsteadVocabularyTest {
 			e.printStackTrace();
 		}
 
-		assertEquals(4, check.getUniqueOperandCount() ,0.1); 
+		assertEquals(12.0, check.getUniqueOperandCount() ,0.1); 
     }
 	
 	
@@ -60,7 +60,7 @@ public class HalsteadVocabularyTest {
 			e.printStackTrace();
 		}
 
-		assertEquals(12, check.getHalsteadVocabulary(),0.1); 
+		assertEquals(19., check.getHalsteadVocabulary(),0.1); 
     }
 
 }

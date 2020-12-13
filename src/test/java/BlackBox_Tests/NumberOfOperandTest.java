@@ -48,8 +48,8 @@ public class NumberOfOperandTest {
 		assertEquals(12, check.getOperandUniqueCount()); 
     }
 	
-	@Test // Tests on file with Operands commented out. Should return 1 
-	// because of class name.
+	@Test // Tests on file with Operands commented out. Should return 3 
+	// because of class name and packages.
 	public void OperatorTest3() throws IOException {
 		
 		NumberOfOperandsCheck check = new NumberOfOperandsCheck(); 
@@ -62,7 +62,7 @@ public class NumberOfOperandTest {
 			e.printStackTrace();
 		}
 
-		assertEquals(1, check.getOperandCount()); 
+		assertEquals(3, check.getOperandCount()); 
     }
 	
 

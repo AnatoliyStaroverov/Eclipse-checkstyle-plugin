@@ -23,11 +23,11 @@ public class HalsteadLengthTest {
 			e.printStackTrace();
 		}
 
-		assertEquals(12, check.getOperandCount()); 
+		assertEquals(15, check.getOperandCount()); 
     }
 	
 	
-	@Test // Tests the operators count in halstead length.
+	@Test // Tests the operators count.
 	public void LengthTest2() throws IOException {
 		HalsteadLengthCheck check = new HalsteadLengthCheck(); 
 		TestEngine test = new TestEngine(filePath , "test1.java", check); 
@@ -39,7 +39,7 @@ public class HalsteadLengthTest {
 			e.printStackTrace();
 		}
 
-		assertEquals(4, check.getOperatorCount()); 
+		assertEquals(6, check.getOperatorCount()); 
     }
 	
 	
@@ -55,7 +55,7 @@ public class HalsteadLengthTest {
 			e.printStackTrace();
 		}
 
-		assertEquals(12, check.getHalsteadLength()); 
+		assertEquals(21, check.getHalsteadLength()); 
     }
 
 }

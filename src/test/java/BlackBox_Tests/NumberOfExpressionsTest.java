@@ -29,24 +29,10 @@ public class NumberOfExpressionsTest {
 			e.printStackTrace();
 		}
 
-		assertEquals(7, check.getCount()); 
+		assertEquals(4, check.getCount()); 
     }
 	
-	@Test // Tests To find all Operands
-	public void ExpresionTest2() throws IOException {
-		
-		NumberOfExpressionsCheck check = new NumberOfExpressionsCheck(); 
-		TestEngine test = new TestEngine(filePath , "test2.java", check); 
-		
-		try {
-			test.RunTestCase(); 
-		} catch (CheckstyleException e) {
-			
-			e.printStackTrace();
-		}
-
-		assertEquals(7, check.getCount()); 
-    }
+	
 	
 	@Test // Tests on file with Operands commented out. Should return 1 
 	// because of class name.

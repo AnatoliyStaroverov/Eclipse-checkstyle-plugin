@@ -14,14 +14,14 @@ public class NumberOfExpressionsCheck extends AbstractCheck {
 
 	@Override
 	public int[] getDefaultTokens() {
-		return new int[] { TokenTypes.EXPR,
+		return new int[] { TokenTypes.CLASS_DEF, TokenTypes.INTERFACE_DEF 
 							
 							};
 	}
 
 	@Override
 	public int[] getAcceptableTokens() {
-		return new int[] { TokenTypes.EXPR, };
+		return new int[] {TokenTypes.CLASS_DEF, TokenTypes.INTERFACE_DEF  };
 	}
 
 
