@@ -6,6 +6,46 @@ import com.puppycrawl.tools.checkstyle.api.*;
 public class HalsteadLengthCheck extends AbstractCheck {
 	
 		public int halsteadLength;
+		
+		int[] halsteadTokens = { 
+				
+				/* Unary Operator Type*/	
+				TokenTypes.POST_INC,TokenTypes.POST_DEC,TokenTypes.DEC,TokenTypes.INC,
+				TokenTypes.LNOT,TokenTypes.BNOT,TokenTypes.UNARY_MINUS,TokenTypes.UNARY_PLUS,
+				
+				/* Arithmetic Operator type */
+				TokenTypes.STAR,TokenTypes.DIV,TokenTypes.MOD,TokenTypes.PLUS,TokenTypes.MINUS,
+				TokenTypes.BSR,TokenTypes.SR,TokenTypes.SL,
+				
+				/* Relational Operator type */
+				TokenTypes.LT,TokenTypes.GT,TokenTypes.LE,TokenTypes.GE,
+				TokenTypes.LITERAL_INSTANCEOF,TokenTypes.EQUAL,TokenTypes.NOT_EQUAL,
+				
+				/* Bitwise */
+				TokenTypes.BAND,TokenTypes.BXOR,TokenTypes.BOR,
+				
+				/* Logical Operator type */
+				TokenTypes.LAND,TokenTypes.LOR,
+				
+				/* Ternary  Operator type */
+				TokenTypes.QUESTION,TokenTypes.EOF,
+				
+				/* Assignment  Operator type  */
+				TokenTypes.ASSIGN,TokenTypes.BAND_ASSIGN,TokenTypes.BOR_ASSIGN,
+				TokenTypes.BSR_ASSIGN,TokenTypes.BXOR_ASSIGN,TokenTypes.DIV_ASSIGN,
+				TokenTypes.MINUS_ASSIGN,TokenTypes.MOD_ASSIGN,TokenTypes.PLUS_ASSIGN,
+				TokenTypes.SL_ASSIGN,TokenTypes.SR_ASSIGN,TokenTypes.STAR_ASSIGN,
+				
+				// operands 
+				TokenTypes.IDENT, 
+				TokenTypes.NUM_DOUBLE,
+				TokenTypes.NUM_FLOAT,
+				TokenTypes.NUM_INT,
+				TokenTypes.NUM_LONG 
+				
+		};
+		
+		
 
 		// Create object instance of Operand and operators for calculation.
 		private  NumberOfOperandsCheck operandCount = new NumberOfOperandsCheck();
@@ -52,65 +92,18 @@ public class HalsteadLengthCheck extends AbstractCheck {
 		@Override
 		public int[] getDefaultTokens() {
 			
-			// Get operator and operand length 
-			int operandLength = operandCount.getDefaultTokens().length;
-			int operatorLength = operatorCount.getDefaultTokens().length;
 			
-			// create new list to return 
-			int[] newDefaultTokens = new int[operandLength+operatorLength];
-			
-			// assign local variables to operand and operator arrays for readability purpose.
-			int[] operandTokens = operandCount.getDefaultTokens();
-			int[] operatorTokens = operatorCount.getDefaultTokens();
-			
-			// Merge the two arrays into new array.
-			System.arraycopy(operandTokens, 0, newDefaultTokens , 0, operandLength);
-			System.arraycopy(operatorTokens, 0, newDefaultTokens, 0, operatorLength);
-			
-			return newDefaultTokens;
+			return halsteadTokens;
 		}
 
 		@Override
 		public int[] getAcceptableTokens() {
-			
-			// Get operator and operand length 
-			int operandLength = operandCount.getAcceptableTokens().length;
-			int operatorLength = operatorCount.getAcceptableTokens().length;
-			
-			// create new list to return 
-			int[] newAcceptableTokens = new int[operandLength+operatorLength];
-			
-			// assign local variables to operand and operator arrays for readability purpose.
-			int[] operandTokens = operandCount.getAcceptableTokens();
-			int[] operatorTokens = operatorCount.getAcceptableTokens();
-			
-			// Merge the two arrays into new array.
-			System.arraycopy(operandTokens, 0, newAcceptableTokens , 0, operandLength);
-			System.arraycopy(operatorTokens, 0, newAcceptableTokens, 0, operatorLength);
-			
-			return newAcceptableTokens;
-						
+			return halsteadTokens;		
 		}
 
 		@Override
 		public final int[] getRequiredTokens() {
-			
-			// Get operator and operand length 
-			int operandLength = operandCount.getRequiredTokens().length;
-			int operatorLength = operatorCount.getRequiredTokens().length;
-			
-			// create new list to return 
-			int[] newRequiredTokens = new int[operandLength+operatorLength];
-			
-			// assign local variables to operand and operator arrays for readability purpose.
-			int[] operandTokens = operandCount.getRequiredTokens();
-			int[] operatorTokens = operatorCount.getRequiredTokens();
-			
-			// Merge the two arrays into new array.
-			System.arraycopy(operandTokens, 0, newRequiredTokens , 0, operandLength);
-			System.arraycopy(operatorTokens, 0, newRequiredTokens, 0, operatorLength);
-			
-			return newRequiredTokens;
+			return halsteadTokens;
 		}
 
 

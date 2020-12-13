@@ -1,10 +1,48 @@
 package Checks;
 import com.puppycrawl.tools.checkstyle.api.*;
 import java.util.ArrayList;
-import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 
 public class HalsteadVolumeCheck extends AbstractCheck{
 
+	 int[] halsteadVolumeTokens = { 
+				
+				/* Unary Operator Type*/	
+				TokenTypes.POST_INC,TokenTypes.POST_DEC,TokenTypes.DEC,TokenTypes.INC,
+				TokenTypes.LNOT,TokenTypes.BNOT,TokenTypes.UNARY_MINUS,TokenTypes.UNARY_PLUS,
+				
+				/* Arithmetic Operator type */
+				TokenTypes.STAR,TokenTypes.DIV,TokenTypes.MOD,TokenTypes.PLUS,TokenTypes.MINUS,
+				TokenTypes.BSR,TokenTypes.SR,TokenTypes.SL,
+				
+				/* Relational Operator type */
+				TokenTypes.LT,TokenTypes.GT,TokenTypes.LE,TokenTypes.GE,
+				TokenTypes.LITERAL_INSTANCEOF,TokenTypes.EQUAL,TokenTypes.NOT_EQUAL,
+				
+				/* Bitwise */
+				TokenTypes.BAND,TokenTypes.BXOR,TokenTypes.BOR,
+				
+				/* Logical Operator type */
+				TokenTypes.LAND,TokenTypes.LOR,
+				
+				/* Ternary  Operator type */
+				TokenTypes.QUESTION,TokenTypes.EOF,
+				
+				/* Assignment  Operator type  */
+				TokenTypes.ASSIGN,TokenTypes.BAND_ASSIGN,TokenTypes.BOR_ASSIGN,
+				TokenTypes.BSR_ASSIGN,TokenTypes.BXOR_ASSIGN,TokenTypes.DIV_ASSIGN,
+				TokenTypes.MINUS_ASSIGN,TokenTypes.MOD_ASSIGN,TokenTypes.PLUS_ASSIGN,
+				TokenTypes.SL_ASSIGN,TokenTypes.SR_ASSIGN,TokenTypes.STAR_ASSIGN,
+				
+				// operands 
+				TokenTypes.IDENT, 
+				TokenTypes.NUM_DOUBLE,
+				TokenTypes.NUM_FLOAT,
+				TokenTypes.NUM_INT,
+				TokenTypes.NUM_LONG 
+				
+		};
+		
+	 
 	private double halsteadVolume;
 	private int halLength;
 	private int halVocabulary;
@@ -12,8 +50,8 @@ public class HalsteadVolumeCheck extends AbstractCheck{
 	private HalsteadLengthCheck halsteadLength = new HalsteadLengthCheck();
 	private HalsteadVocabularyCheck halsteadVocabulary = new HalsteadVocabularyCheck();
 
-	private ArrayList<Integer> operandTokens = arrayToList(halsteadLength.getDefaultTokens());
-	private ArrayList<Integer> operatorTokens = arrayToList(halsteadVocabulary.getDefaultTokens());
+	private ArrayList<Integer> halsteadLengthTokens = arrayToList(halsteadLength.getDefaultTokens());
+	private ArrayList<Integer> halsteadVocabularyTokens = arrayToList(halsteadVocabulary.getDefaultTokens());
 
 	@Override // initialized and begin tree for length and vocab.
 	public void beginTree(DetailAST rootAST) {
@@ -31,12 +69,12 @@ public class HalsteadVolumeCheck extends AbstractCheck{
 	public void visitToken(DetailAST ast) {
 		
 		// Condition for operand type
-		if (operandTokens.contains(ast.getType())) {
+		if ( halsteadLengthTokens.contains(ast.getType())) {
 			halsteadLength.visitToken(ast);
 		}
 		
 		// Condition for operator type
-		if (operatorTokens.contains(ast.getType())) {
+		if (halsteadVocabularyTokens.contains(ast.getType())) {
 			halsteadVocabulary.visitToken(ast);
 		}
 	}
@@ -59,11 +97,13 @@ public class HalsteadVolumeCheck extends AbstractCheck{
 		// finish other checks we depend on.
 		halsteadLength.finishTree(rootAST);
 		halsteadVocabulary.finishTree(rootAST);
+		
+		CalcHalsteadVolume();
 
 		try {
 			log(0, "Halstead Volume: " + halsteadVolume);
 		} catch (NullPointerException e) {
-			System.out.println("Can't run log unless called from treewalker!");
+			System.out.println("Error in finish tree- from treewalker!");
 		}
 	}
 
@@ -84,64 +124,17 @@ public class HalsteadVolumeCheck extends AbstractCheck{
 
 	@Override
 	public int[] getDefaultTokens() {
-		
-		// Get halstead vocab and  length 
-		int halsteadLengths = halsteadLength.getDefaultTokens().length;
-		int halsteadVocabularyLength = halsteadVocabulary.getDefaultTokens().length;
-		
-		// create new list to return 
-		int[] newDefaultTokens = new int[halsteadLengths +halsteadVocabularyLength];
-		
-		// assign local variables to length and vocab arrays for readability purpose.
-		int[] lengthTokens = halsteadLength.getDefaultTokens();
-		int[] vocabTokens = halsteadVocabulary.getDefaultTokens();
-		
-		// Merge the two arrays into new array.
-		System.arraycopy(lengthTokens, 0, newDefaultTokens , 0, halsteadLengths);
-		System.arraycopy(vocabTokens, 0, newDefaultTokens, 0, halsteadVocabularyLength);
-		
-		return newDefaultTokens;
+		return  halsteadVolumeTokens;
 	}
 
 	@Override
 	public int[] getAcceptableTokens() {
-		// Get halstead vocab and  length 
-		int halsteadLengths = halsteadLength.getAcceptableTokens().length;
-		int halsteadVocabularyLength = halsteadVocabulary.getAcceptableTokens().length;
-		
-		// create new list to return 
-		int[] newAcceptableTokens = new int[halsteadLengths +halsteadVocabularyLength];
-		
-		// assign local variables to length and vocab arrays for readability purpose.
-		int[] lengthTokens = halsteadLength.getAcceptableTokens();
-		int[] vocabTokens = halsteadVocabulary.getAcceptableTokens();
-		
-		// Merge the two arrays into new array.
-		System.arraycopy(lengthTokens, 0, newAcceptableTokens , 0, halsteadLengths);
-		System.arraycopy(vocabTokens, 0, newAcceptableTokens, 0, halsteadVocabularyLength);
-		
-		return newAcceptableTokens;
+		return  halsteadVolumeTokens;
 	}
 
 	@Override
 	public final int[] getRequiredTokens() {
-		
-		// Get halstead vocab and  length 
-		int halsteadLengths = halsteadLength.getRequiredTokens().length;
-		int halsteadVocabularyLength = halsteadVocabulary.getRequiredTokens().length;
-		
-		// create new list to return 
-		int[] newRequiredTokens = new int[halsteadLengths +halsteadVocabularyLength];
-		
-		// assign local variables to length and vocab arrays for readability purpose.
-		int[] lengthTokens = halsteadLength.getRequiredTokens();
-		int[] vocabTokens = halsteadVocabulary.getRequiredTokens();
-		
-		// Merge the two arrays into new array.
-		System.arraycopy(lengthTokens, 0, newRequiredTokens , 0, halsteadLengths);
-		System.arraycopy(vocabTokens, 0, newRequiredTokens, 0, halsteadVocabularyLength);
-		
-		return newRequiredTokens;
+		return  halsteadVolumeTokens;
 	}
 
 	

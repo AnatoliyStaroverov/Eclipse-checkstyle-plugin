@@ -5,6 +5,47 @@ import com.puppycrawl.tools.checkstyle.api.*;
 public class HalsteadEffortCheck  extends AbstractCheck{
 	
 	private double halsteadEffort;
+	
+     int[] HalsteadEfforttokens = { 
+			
+			/* Unary Operator Type*/	
+			TokenTypes.POST_INC,TokenTypes.POST_DEC,TokenTypes.DEC,TokenTypes.INC,
+			TokenTypes.LNOT,TokenTypes.BNOT,TokenTypes.UNARY_MINUS,TokenTypes.UNARY_PLUS,
+			
+			/* Arithmetic Operator type */
+			TokenTypes.STAR,TokenTypes.DIV,TokenTypes.MOD,TokenTypes.PLUS,TokenTypes.MINUS,
+			TokenTypes.BSR,TokenTypes.SR,TokenTypes.SL,
+			
+			/* Relational Operator type */
+			TokenTypes.LT,TokenTypes.GT,TokenTypes.LE,TokenTypes.GE,
+			TokenTypes.LITERAL_INSTANCEOF,TokenTypes.EQUAL,TokenTypes.NOT_EQUAL,
+			
+			/* Bitwise */
+			TokenTypes.BAND,TokenTypes.BXOR,TokenTypes.BOR,
+			
+			/* Logical Operator type */
+			TokenTypes.LAND,TokenTypes.LOR,
+			
+			/* Ternary  Operator type */
+			TokenTypes.QUESTION,TokenTypes.EOF,
+			
+			/* Assignment  Operator type  */
+			TokenTypes.ASSIGN,TokenTypes.BAND_ASSIGN,TokenTypes.BOR_ASSIGN,
+			TokenTypes.BSR_ASSIGN,TokenTypes.BXOR_ASSIGN,TokenTypes.DIV_ASSIGN,
+			TokenTypes.MINUS_ASSIGN,TokenTypes.MOD_ASSIGN,TokenTypes.PLUS_ASSIGN,
+			TokenTypes.SL_ASSIGN,TokenTypes.SR_ASSIGN,TokenTypes.STAR_ASSIGN,
+			
+			// operands 
+			TokenTypes.IDENT, 
+			TokenTypes.NUM_DOUBLE,
+			TokenTypes.NUM_FLOAT,
+			TokenTypes.NUM_INT,
+			TokenTypes.NUM_LONG 
+			
+	};
+
+	
+
 
 	private HalsteadDifficultyCheck halsteadDifficulty = new HalsteadDifficultyCheck();
 	private HalsteadVolumeCheck halsteadVolume = new HalsteadVolumeCheck();
@@ -75,64 +116,17 @@ public class HalsteadEffortCheck  extends AbstractCheck{
 	//token types from checks that are depending on
 	@Override
 	public int[] getDefaultTokens() {
-		
-		// Get Difficulty and Volume length 
-		int halsteadDifficultyLength = halsteadDifficulty.getDefaultTokens().length;
-		int halsteadVolumeLength = halsteadVolume.getDefaultTokens().length;
-		
-		// create new list to return 
-		int[] newDefaultTokens = new int[halsteadDifficultyLength+ halsteadVolumeLength];
-		
-		// assign local variables to operand and operator arrays for readability purpose.
-		int[] difficultyTokens = halsteadDifficulty.getDefaultTokens();
-		int[] halsteadTokens = halsteadVolume.getDefaultTokens();
-		
-		// Merge the two arrays into new array.
-		System.arraycopy(difficultyTokens, 0, newDefaultTokens , 0, halsteadDifficultyLength);
-		System.arraycopy(halsteadTokens, 0, newDefaultTokens, 0, halsteadVolumeLength);
-		
-		return newDefaultTokens;
+		return HalsteadEfforttokens;
 	}
 
 	@Override
 	public int[] getAcceptableTokens() {
-		// Get Difficulty and Volume length 
-		int halsteadDifficultyLength = halsteadDifficulty.getAcceptableTokens().length;
-		int halsteadVolumeLength = halsteadVolume.getAcceptableTokens().length;
-		
-		// create new list to return 
-		int[] newAcceptableTokens = new int[halsteadDifficultyLength+ halsteadVolumeLength];
-		
-		// assign local variables to operand and operator arrays for readability purpose.
-		int[] difficultyTokens = halsteadDifficulty.getAcceptableTokens() ;
-		int[] halsteadTokens = halsteadVolume.getAcceptableTokens() ;
-		
-		// Merge the two arrays into new array.
-		System.arraycopy(difficultyTokens, 0, newAcceptableTokens , 0, halsteadDifficultyLength);
-		System.arraycopy(halsteadTokens, 0, newAcceptableTokens, 0, halsteadVolumeLength);
-		
-		return newAcceptableTokens;
+		return HalsteadEfforttokens;
 	}
 
 	@Override
 	public final int[] getRequiredTokens() {
-		
-		// Get Difficulty and Volume length 
-		int halsteadDifficultyLength = halsteadDifficulty.getRequiredTokens().length;
-		int halsteadVolumeLength = halsteadVolume.getRequiredTokens().length;
-		
-		// create new list to return 
-		int[] newRequiredTokens = new int[halsteadDifficultyLength+ halsteadVolumeLength];
-		
-		// assign local variables to operand and operator arrays for readability purpose.
-		int[] difficultyTokens = halsteadDifficulty.getRequiredTokens();
-		int[] halsteadTokens = halsteadVolume.getRequiredTokens();
-		
-		// Merge the two arrays into new array.
-		System.arraycopy(difficultyTokens, 0, newRequiredTokens , 0, halsteadDifficultyLength);
-		System.arraycopy(halsteadTokens, 0, newRequiredTokens, 0, halsteadVolumeLength);
-		
-		return newRequiredTokens;
+		return HalsteadEfforttokens;
 	}
 
 	private ArrayList<Integer> arrayToList(int[] array) {
