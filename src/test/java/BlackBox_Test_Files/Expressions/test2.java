@@ -8,15 +8,8 @@ public class test2 {
 	public static void main() {
 		
 		double temp;
-		int ww;
-		ww = 2;
-		temp = 2*3;
+		int ww = 2;
+		temp = 2*3+ww;
 		temp = temp*temp;
-		
-		if(temp<5) {
-			ww = 5;
-		}
-		
-		
 	}
 }

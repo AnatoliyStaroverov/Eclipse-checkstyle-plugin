@@ -19,29 +19,31 @@ public class NumberOfLoopsCheckTest {
 			TokenTypes.LITERAL_DO 
 			};
 
+	
+	
 	@Test
-	public void testGetDefaultTokens() {
+	public void DefaultTokenTest() {
 		NumberOfLoopsCheck test = new NumberOfLoopsCheck();
 
 		assertArrayEquals(expectedTokens, test.getDefaultTokens());
 	}
 
 	@Test
-	public void testGetAcceptableTokens() {
+	public void AcceptableTokensTest() {
 		NumberOfLoopsCheck test = new NumberOfLoopsCheck();
 
 		assertArrayEquals(expectedTokens, test.getAcceptableTokens());
 	}
 
 	@Test
-	public void testGetRequiredTokens() {
+	public void RequiredTokensTest() {
 		NumberOfLoopsCheck test = new NumberOfLoopsCheck();
 
 		assertArrayEquals(expectedTokens, test.getRequiredTokens());
 	}
 
 	@Test // Test for no loops.
-	public void testLoop_No() { 
+	public void NoloopTest() { 
 		NumberOfLoopsCheck test = new NumberOfLoopsCheck();
 		DetailAST ast = mock(DetailAST.class);
 
@@ -52,7 +54,7 @@ public class NumberOfLoopsCheckTest {
 	}
 
 	@Test // Test for for loops
-	public void testLoop_For() { 
+	public void ForLoopTest() { 
 		NumberOfLoopsCheck test = new NumberOfLoopsCheck();
 		DetailAST ast =mock(DetailAST.class);
 
@@ -66,7 +68,7 @@ public class NumberOfLoopsCheckTest {
 	}
 
 	@Test // Test for while loops.
-	public void testLoop_While() { 
+	public void WhileLoopTest() { 
 		NumberOfLoopsCheck test = new NumberOfLoopsCheck();
 		DetailAST ast = mock(DetailAST.class);
 
@@ -79,7 +81,7 @@ public class NumberOfLoopsCheckTest {
 	}
 	
 	@Test // Test for do loops.
-	public void testLoop_do() {
+	public void DoWhileLoopTest() {
 		NumberOfLoopsCheck test = new NumberOfLoopsCheck();
 		DetailAST ast = mock(DetailAST.class);
 
@@ -92,23 +94,23 @@ public class NumberOfLoopsCheckTest {
 	}
 	
 	@Test // Test for all loops.
-	public void testLoop5() { 
+	public void GeneralLoopTest() { 
 		NumberOfLoopsCheck test = new NumberOfLoopsCheck();
 		DetailAST ast = mock(DetailAST.class);
 		
 		doReturn(TokenTypes.LITERAL_FOR).when(ast).getType();
-		for (int i = 0; i < 5; i++) { 
+		for (int i = 0; i < 7; i++) { 
 			test.visitToken(ast);
 		}
 
 		doReturn(TokenTypes.LITERAL_DO).when(ast).getType();
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 2; i++) {
 			test.visitToken(ast);
 		}
 		
 		
 		doReturn(TokenTypes.LITERAL_WHILE).when(ast).getType();
-		for (int i = 0; i < 5; i++) { 
+		for (int i = 0; i < 6; i++) { 
 			test.visitToken(ast);
 		}
 
