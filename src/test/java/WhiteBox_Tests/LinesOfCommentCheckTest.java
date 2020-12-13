@@ -61,42 +61,78 @@ public class LinesOfCommentCheckTest {
 		assertEquals(1, test.getCount());
 	}
 
+	
 	@Test // Test for comments blocks
 	public void BlockLineCommentTest() { 
+
+	/*  Block comments are calculated  by  an incrementer  to account for the (/*)
+	 *  plus  (BLOCK_COMMENT_END current  line - BLOCK_COMMENT_BEGIN curent line). Thus,
+	 *   Block comment line Count (BCLC) = 1 + (BLOCK_COMMENT_END - BLOCK_COMMENT_BEGIN)
+	 */
+		
 		LinesOfCommentCheck test = new LinesOfCommentCheck();
-		DetailAST ast = mock(DetailAST.class);
-		//DetailAST astSpy = spy(DetailAST.class);
-
-		test.beginTree(ast); 
-
-		doReturn(TokenTypes.BLOCK_COMMENT_BEGIN).when(ast).getType();
-		//doReturn(TokenTypes.BLOCK_COMMENT_END).when(ast).getType();
 		
+		DetailAST blockBegin = mock(DetailAST.class); // TokenTypes.BLOCK_COMMENT_BEGIN
+		DetailAST blockEnd = mock(DetailAST.class); // TokenTypes.BLOCK_COMMENT_END
 		
-		test.visitToken(ast);
+		test.beginTree(blockBegin); 
+		
+		//  The Tested Example  so, BCLC = 1 + (4-1) = 4
+		
+		/*  This isn't counted for in the BLOCK_COMMENT_BEGIN, so add manually.
+		 * (1) BLOCK_COMMENT_BEGIN
+		 * (2)
+		 * (3)
+		 * (4) BLOCK_COMMENT_END  */
 
-		assertEquals(1, test.getCount());
+		
+		doReturn(TokenTypes.BLOCK_COMMENT_BEGIN).when(blockBegin).getType(); 
+		doReturn(TokenTypes.BLOCK_COMMENT_END).when(blockEnd).getType();
+		
+		// link blockBegin and blockEnd together
+		doReturn(blockEnd).when(blockBegin).findFirstToken(TokenTypes.BLOCK_COMMENT_END);
+		
+		// set lines for starting and ending point 
+		doReturn(1).when(blockBegin).getLineNo();
+		doReturn(4).when(blockEnd).getLineNo();
+		
+		test.visitToken(blockBegin);
+		
+		assertEquals(4, test.getCount());
 	}
 	
-	@Test // Tests a combinations of loop conditions.
-	public void testCountCommentsCheck4() {
+	@Test // single and block comments lines.
+	public void MultiTypeCommentTest() {
 		
 		LinesOfCommentCheck test = new LinesOfCommentCheck();
-		DetailAST ast = mock(DetailAST.class);
+		
+		DetailAST ast = mock(DetailAST.class); // for TokenTypes.BLOCK_COMMENT_BEGIN
+		DetailAST asts = mock(DetailAST.class); // TokenTypes.BLOCK_COMMENT_END
 
 		test.beginTree(ast); 
 		
+		// loop through single comments 10 times.
 		doReturn(TokenTypes.SINGLE_LINE_COMMENT).when(ast).getType();
 		for (int i = 0; i < 10; i++) { 
 			test.visitToken(ast);
 		}
 
-		doReturn(TokenTypes.BLOCK_COMMENT_BEGIN).when(ast).getType();
+		
+		doReturn(TokenTypes.BLOCK_COMMENT_BEGIN).when(ast).getType(); // block begin
+		doReturn(TokenTypes.BLOCK_COMMENT_END).when(asts).getType(); // block end 
+		
+		// link blockBegin and blockEnd together
+		doReturn(asts).when(ast).findFirstToken(TokenTypes.BLOCK_COMMENT_END);
+		// Set size 
+		doReturn(1).when(ast).getLineNo();
+		doReturn(4).when(asts).getLineNo();
+		
+		// loop through block comment 10 times of size 4 so, return 40.
 		for (int i = 0; i < 10; i++) { 
 			test.visitToken(ast);
 		}
 
-		assertEquals(20, test.getCount());
+		assertEquals(50, test.getCount());
 	}
 
 }

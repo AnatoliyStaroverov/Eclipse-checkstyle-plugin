@@ -24,9 +24,9 @@ public class LinesOfCommentCheck extends AbstractCheck {
 			// find end of comment line and the begining and subtract.
 			// to get rest of block lines.
 			
-			//int commentStart =  ast.getLineNo();
-			//int commentEnd = ast.findFirstToken(TokenTypes.BLOCK_COMMENT_END).getLineNo();
-			//lineCount += commentEnd - commentStart;
+			int commentStart =  ast.getLineNo();
+			int commentEnd = ast.findFirstToken(TokenTypes.BLOCK_COMMENT_END).getLineNo();
+			lineCount += commentEnd - commentStart;
 			break;
 			
 		
