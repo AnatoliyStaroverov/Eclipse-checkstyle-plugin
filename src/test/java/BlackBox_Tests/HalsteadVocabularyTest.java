@@ -60,7 +60,7 @@ public class HalsteadVocabularyTest {
 			e.printStackTrace();
 		}
 
-		assertEquals(19., check.getHalsteadVocabulary(),0.1); 
+		assertEquals(19.0, check.getHalsteadVocabulary(),0.1); 
     }
 
 }

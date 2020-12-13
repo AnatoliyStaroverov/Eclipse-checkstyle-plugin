@@ -65,5 +65,21 @@ public class NumberOfOperandTest {
 		assertEquals(3, check.getOperandCount()); 
     }
 	
+	@Test //  MOre complicated test.
+	public void OperatorTest4() throws IOException {
+		
+		NumberOfOperandsCheck check = new NumberOfOperandsCheck(); 
+		TestEngine test = new TestEngine(filePath , "test3.java", check); 
+		
+		try {
+			test.RunTestCase(); 
+		} catch (CheckstyleException e) {
+			
+			e.printStackTrace();
+		}
+
+		assertEquals(27, check.getOperandCount()); 
+    }
+	
 
 }

@@ -1,22 +1,30 @@
-package BlackBox_Test_Files.HalsteadDifficulty;
+package BlackBox_Test_Files.HalsteadDifficulty;  // operand 2
 
-public class test1 {
+public class test1 {  // operand 3
 	
-	public void test() {
+public void HalsteadDifficulty() {  //operand 4
 		
-	//	Halstead Difficulty is half of the unique operators
-	//  multiplied by the total number of operands, 
-	// divided by the number of unique operands [1,2]
+		/* operand 5*/	int temp2 = 12;  //operator 1
+		/*operand 6*/	int temp3 = 13;  
+		/*operand 8 */	float temp4 = 14; 
+		/*operand 10 */	double temp23 = 12.5;  
+		/* operand 12*/	boolean temp = true;  
+			 
+		/**/	 temp23 = temp23 / temp4; // operator 2
+		/**/	 temp2 = temp2 + temp3; // operator 3
+		/**/	 temp3 = temp2 * temp3; // operator 4
+		/**/	 temp23 = temp2 % temp3; // operator 5
+		/**/	 temp =  temp == !true; // operator 7 (two here)
 		
-		int i = 5;
-		int i1 = 5;
-		int i2 = 5;
-		int i4 = 5;
 		
-		i2 = i2 + i4;
+//Halstead Difficulty = ((.5) * unique operators * total operands ) / unique operands 
 		
-		boolean tt = true;
-		boolean jj = (i < i1);
+		// Unique operands = 12
+		//// unique operators = 7
+		// (.5) Unique operators = 3.5
+		// total operands =  27
+
+		// HAlDif = (3.5)(27) / (12) = 7.87
 		
 	}
 

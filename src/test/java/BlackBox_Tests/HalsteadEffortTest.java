@@ -12,18 +12,18 @@ public class HalsteadEffortTest {
 	String filePath = System.getProperty("user.dir") + projectPath ;
 	
 	@Test  // Tests Halstead volume
-	public void LengthTest1() throws IOException {
+	public void EffortTest1() throws IOException {
 		HalsteadEffortCheck check = new HalsteadEffortCheck(); 
 		TestEngine test = new TestEngine(filePath , "test1.java", check); 
 		
-		try {
+		try { 
 			test.RunTestCase(); 
 		} catch (CheckstyleException e) {
 			
 			e.printStackTrace();
 		}
 
-		assertEquals(12, check.getHalsteadVolume(),0.1); 
+		assertEquals(182.66, check.getHalsteadVolume(),0.1); 
     }
 	
 	
@@ -39,7 +39,7 @@ public class HalsteadEffortTest {
 			e.printStackTrace();
 		}
 
-		assertEquals(4, check.getHalsteadDifficulty(),0.1); 
+		assertEquals( 7.87, check.getHalsteadDifficulty(),0.1); 
     }
 	
 	
@@ -55,6 +55,6 @@ public class HalsteadEffortTest {
 			e.printStackTrace();
 		}
 
-		assertEquals(12, check.getHalsteadEffort(),0.1); 
+		assertEquals(1438.45, check.getHalsteadEffort(),0.1); 
     }
 }

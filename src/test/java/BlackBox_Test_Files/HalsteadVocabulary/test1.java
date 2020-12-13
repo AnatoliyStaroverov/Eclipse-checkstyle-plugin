@@ -1,17 +1,16 @@
-package BlackBox_Test_Files.HalsteadVocabulary;   //operand 2
-public class test1 { // operand 3
+package BlackBox_Test_Files.HalsteadVocabulary;   //operand 1
 
-	/*
-	 * Halstead Vocabulary is the sum of the number
-	 *  of unique operators and unique operands [1,2]
-	 */
-   public void HalsteadVocabulary() { // operand 4
+/* Halstead Vocabulary is the sum of the number
+ *  of unique operators and unique operands [1,2] */
+ 
+public class test1 { // operand 2
+ public void HalsteadVocabulary() { // operand 3 - duplicate function name )
 			
-	/* operand 6*/	int temp2 = 12;  //operator 1
-	/*operand 7*/	int temp3 = 13;  
-	/*operand 9 */	float temp4 = 14; 
-	/*operand 11 */	double temp23 = 12.5;  
-	/* operand 13*/	boolean temp = true;  
+	/* operand 5*/	int temp2 = 12;  //operator 1
+	/*operand 6*/	int temp3 = 13;  
+	/*operand 8 */	float temp4 = 14; 
+	/*operand 10 */	double temp23 = 12.5;  
+	/* operand 12*/	boolean temp = true;  
 		
 	/**/	 temp23 = temp23 / temp4; // operator 2
 	/**/	 temp2 = temp2 + temp3; // operator 3

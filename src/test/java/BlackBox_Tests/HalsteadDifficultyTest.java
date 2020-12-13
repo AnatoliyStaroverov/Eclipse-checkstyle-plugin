@@ -40,7 +40,7 @@ public class HalsteadDifficultyTest {
 			e.printStackTrace();
 		}
 
-		assertEquals(12, check.getOperands(),0.1); 
+		assertEquals(27, check.getOperands(),0.1); 
     }
 
 @Test //  Tests  halstead Difficulity.
@@ -56,6 +56,6 @@ public void DiffTest3() throws IOException {
 		e.printStackTrace();
 	}
 
-	assertEquals(12, check.getHalsteadDifficulty(),0.1); 
+	assertEquals(7.87, check.getHalsteadDifficulty(),0.1); 
 }
 }

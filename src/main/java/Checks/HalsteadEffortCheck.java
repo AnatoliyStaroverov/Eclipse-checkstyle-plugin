@@ -90,9 +90,11 @@ public class HalsteadEffortCheck  extends AbstractCheck{
 		// Conclude other checks to calculate effort.
 		halsteadDifficulty.finishTree(rootAST);
 		halsteadVolume.finishTree(rootAST);
+		
+		double answer = CalcHalsteadEffort();
 
 		try { 
-			log(0, "Halstead Effort: " + halsteadEffort);
+			log(0, "Halstead Effort: " + answer );
 		} catch (NullPointerException e) {
 			System.out.println("Error from treewalker!");
 		}
