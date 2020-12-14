@@ -124,5 +124,19 @@ public class NumberOfOperatorsCheckTest {
 		assertEquals(count, test.getOperandUniqueCount());
 	}
 
+	@Test // Test for No operators and init value.
+	public void NoOperatorTest() {
+		
+		NumberOfOperandsCheck test = spy(new NumberOfOperandsCheck());
+		DetailAST ast = mock(DetailAST.class);
+		test.beginTree(ast); 
+		
+		assertEquals(0, test.getOperandCount());
+		assertEquals(0, test.getOperandUniqueCount());
+	}
+	
+	
+	
+	
   }
 

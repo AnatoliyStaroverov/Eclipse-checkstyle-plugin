@@ -11,11 +11,18 @@ import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
 import Checks.NumberOfLoopsCheck;
 
 import Test_Engine.TestEngine;
+
+
 public class NumberOfLoopsTest {
 	
 	String projectPath = "/src/test/java/BlackBox_Test_Files/Loops/";
 	String filePath = System.getProperty("user.dir") + projectPath ;
+	
+	
 
+
+	
+	
 	@Test // Tests file for do, while, and for loops
 	public void LoopTest1() throws IOException {
 		
@@ -47,4 +54,10 @@ public class NumberOfLoopsTest {
 
 		assertEquals(0, check.getLoopCount() ); 
     }
+
+
+  @Test  // Tests the exceptions in the finish tree.
+  public void LoopTest3() {
+	  
+  }
 }

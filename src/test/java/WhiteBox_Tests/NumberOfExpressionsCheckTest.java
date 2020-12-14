@@ -17,12 +17,12 @@ public class NumberOfExpressionsCheckTest {
 
 	@Test
 	public void DefaultTokensTest() {
-		assertArrayEquals(new int[] { TokenTypes.EXPR }, expressioncheck.getDefaultTokens());
+		assertArrayEquals(new int[] { TokenTypes.CLASS_DEF, TokenTypes.INTERFACE_DEF }, expressioncheck.getDefaultTokens());
 	}
 
 	@Test
 	public void AcceptableTokensTest() {
-		assertArrayEquals(new int[] { TokenTypes.EXPR }, expressioncheck.getAcceptableTokens());
+		assertArrayEquals(new int[] { TokenTypes.CLASS_DEF, TokenTypes.INTERFACE_DEF }, expressioncheck.getAcceptableTokens());
 	}
 
 	@Test
