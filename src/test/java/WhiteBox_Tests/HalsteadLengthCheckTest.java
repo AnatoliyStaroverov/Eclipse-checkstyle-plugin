@@ -125,6 +125,8 @@ public class HalsteadLengthCheckTest {
 		assertEquals(3, test.getOperandCount());
 		// Test Operator count
 		assertEquals(2, test.getOperatorCount());
+		assertEquals(5, test.calcHalsteadLength());
+		
 		
 		
 	}
@@ -186,8 +188,18 @@ public class HalsteadLengthCheckTest {
 		}
 
 		test.finishTree(ast);
-
 		assertEquals(11, test.calcHalsteadLength());
 	}
+	
+	@Test // Test No operands and operators.
+	public void NOLength() {
+		HalsteadLengthCheck test = spy(new HalsteadLengthCheck());
+		DetailAST ast = mock(DetailAST.class);
 
+		test.beginTree(ast);
+		test.finishTree(ast);
+
+		assertEquals(0, test.calcHalsteadLength());
+	}
+	
 }

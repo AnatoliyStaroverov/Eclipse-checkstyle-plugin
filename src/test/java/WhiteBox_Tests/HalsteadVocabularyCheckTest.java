@@ -183,6 +183,39 @@ Integer[] tokens = {
 		
 	}
 	
-	
+	@Test // test visit token conditional
+	public void TestVisitToken() {
+		
+		HalsteadVocabularyCheck test = new HalsteadVocabularyCheck();
+		DetailAST ast = mock(DetailAST.class);
+		test.beginTree(ast);
+		
+		doReturn(TokenTypes.LITERAL_FOR).when(ast).getType(); 
+		doReturn("forloop").when(ast).getText();
+		
+		test.visitToken(ast);
+		test.finishTree(ast);
 
+		assertEquals(0, test.getUniqueOperandCount());
+		assertEquals(0, test.getUniqueOperatorCount() );
+		assertEquals(0, test.getHalsteadVocabulary());
+		
+	}
+
+	
+	@Test // Test for no operands
+	public void NoTokensTest() {
+		
+		HalsteadVocabularyCheck test = new HalsteadVocabularyCheck();
+		DetailAST ast = mock(DetailAST.class);
+		test.beginTree(ast);
+		
+		test.visitToken(ast);
+		test.finishTree(ast);
+		
+		assertEquals(0, test.getUniqueOperandCount());
+		assertEquals(0, test.getUniqueOperatorCount() );
+		assertEquals(0, test.getHalsteadVocabulary());
+		
+	}
 }

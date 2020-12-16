@@ -44,9 +44,8 @@ public class NumberOfExpressionsCheck extends AbstractCheck {
 	public void finishTree(DetailAST rootAST) {
 		try {
 			log(rootAST, "Number of Expressions :" + expCount);
-		} 
-		catch (NullPointerException e) {
-			System.out.println("Can't run log unless called from treewalker!");
+		} catch (NullPointerException e) {
+			System.out.println("Error from treewalker!");
 		}
 	}
 

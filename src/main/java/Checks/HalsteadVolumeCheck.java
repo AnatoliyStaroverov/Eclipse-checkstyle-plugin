@@ -103,7 +103,7 @@ public class HalsteadVolumeCheck extends AbstractCheck{
 		try {
 			log(0, "Halstead Volume: " + halsteadVolume);
 		} catch (NullPointerException e) {
-			System.out.println("Error in finish tree- from treewalker!");
+			System.out.println("Error from treewalker!");
 		}
 	}
 

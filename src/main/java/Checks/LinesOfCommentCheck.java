@@ -56,4 +56,13 @@ public class LinesOfCommentCheck extends AbstractCheck {
 	public int getCount() {
 		return this.lineCount;
 	}
+	
+	@Override
+    public void finishTree(DetailAST rootAST) {
+       try {
+	       log(rootAST.getLineNo(),lineCount+"");
+		  } catch (NullPointerException e) {
+				System.out.println("Error from treewalker!");
+			}
+    }
 }

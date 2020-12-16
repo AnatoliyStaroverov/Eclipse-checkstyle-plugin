@@ -5,11 +5,14 @@ import org.junit.Test;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 import Checks.NumberOfLoopsCheck;
-
 
 public class NumberOfLoopsCheckTest {
 
@@ -117,5 +120,22 @@ public class NumberOfLoopsCheckTest {
 		test.finishTree(ast);
 		
 		assertEquals(15, test.getLoopCount());
+	}
+	
+	@Test // Test Exception and exception message.
+	public void OperatorTest1() {
+		
+		NumberOfLoopsCheck test = spy(NumberOfLoopsCheck.class);
+		DetailAST ast = mock(DetailAST.class);
+		
+	     final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+	     System.setOut(new PrintStream(outputStreamCaptor));
+		
+		test.beginTree(ast); 
+		test.finishTree(ast);
+			
+		doThrow(NullPointerException.class).when(test).finishTree(null);
+		assertEquals("Error in treewalker!",outputStreamCaptor.toString().trim());
+		
 	}
 }

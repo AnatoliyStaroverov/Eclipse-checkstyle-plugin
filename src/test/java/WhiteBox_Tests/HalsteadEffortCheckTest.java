@@ -92,7 +92,7 @@ Integer[] tokens = {
 	}
 
 	
-	@Test
+	@Test // Test for knowed values.
 	public void HalsteadEffortTest1() {
 		
 		//Halstead Effort is the difficulty multiplied by the volume. Effort = DV. 
@@ -115,7 +115,58 @@ Integer[] tokens = {
 
 		//  volume = length * log2(vocabulary)
 		//  volume = 45 * log2(19) = 191.15
+		assertEquals(10.0, test.getHalsteadVolume(), 0.1);
+		assertEquals(10.0, test.getHalsteadDifficulty(), 0.1);
 		assertEquals(100, test.CalcHalsteadEffort(), 0.1);
 		
 	}
+	
+	
+	/*@Test // Test for no values
+	public void NoTokensTest() {
+		HalsteadEffortCheck test = spy(new HalsteadEffortCheck());
+		DetailAST ast = mock(DetailAST.class);
+		
+		test.beginTree(ast);
+		test.finishTree(ast);
+
+		assertEquals(0, test.getHalsteadDifficulty(), 0.1);
+		assertEquals(0, test.getHalsteadVolume(), 0.1);
+		assertEquals(0, test.CalcHalsteadEffort(), 0.1);
+	}*/
+	
+	/*@Test // test for wrong token provided in visitToken method.
+	public void TestVisitToken() {
+		
+		HalsteadEffortCheck test = spy(new HalsteadEffortCheck());
+		DetailAST ast = mock(DetailAST.class);
+		test.beginTree(ast);
+		
+		doReturn(TokenTypes.LITERAL_FOR).when(ast).getType(); 
+		doReturn("forloop").when(ast).getText();
+		
+		test.visitToken(ast);
+		test.finishTree(ast);
+
+
+		assertEquals(0, test.getHalsteadDifficulty(), 0.1);
+		assertEquals(0, test.getHalsteadVolume(), 0.1);
+		assertEquals(0, test.CalcHalsteadEffort(), 0.1);
+		
+	}*/
+	
+	//@Test // Test for when only halstead volume is present.
+	//public void TestOneTokenGiven() {
+		
+		///HalsteadEffortCheck test = spy(new HalsteadEffortCheck());
+		//DetailAST ast = mock(DetailAST.class);
+		//test.beginTree(ast);
+		
+		///doReturn(10.0).when(test).getHalsteadVolume();
+		
+		//test.beginTree(ast);
+		//test.finishTree(ast);
+		
+		//assertEquals(0, test.CalcHalsteadEffort(), 0.1);
+	//}
 }

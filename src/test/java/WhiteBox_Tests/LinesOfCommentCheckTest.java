@@ -4,10 +4,15 @@ import org.junit.Test;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 import Checks.LinesOfCommentCheck;
+
 
 
 public class LinesOfCommentCheckTest {
@@ -135,4 +140,33 @@ public class LinesOfCommentCheckTest {
 		assertEquals(50, test.getCount());
 	}
 
+	@Test // Test for required coment function.
+	public void TestNoComments() {
+		LinesOfCommentCheck test = mock(LinesOfCommentCheck.class);
+		DetailAST ast = mock(DetailAST.class);
+		test.beginTree(ast); 
+		
+		doReturn(false).when(test).isCommentNodesRequired();
+		assertEquals(false,test.isCommentNodesRequired());
+	}
+	
+
+	@Test // Test Exception and exception message.
+	public void NumCommentsTest1() {
+		
+		LinesOfCommentCheck test = spy(LinesOfCommentCheck.class);
+		DetailAST ast = mock(DetailAST.class);
+		
+	     final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+	     System.setOut(new PrintStream(outputStreamCaptor));
+		
+		test.beginTree(ast); 
+		test.finishTree(ast);
+			
+		doThrow(NullPointerException.class).when(test).finishTree(null);
+		assertEquals("Error from treewalker!",outputStreamCaptor.toString().trim());
+		
+	}
+	
+	
 }

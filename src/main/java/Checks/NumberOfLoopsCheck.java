@@ -70,10 +70,9 @@ public class NumberOfLoopsCheck extends AbstractCheck {
 	public void finishTree(DetailAST rootAST) {
 		try {
 			log(0, " loop count: {0}. You have exceeded loop max", loopCount);
-			System.out.println("loop debug"+ loopCount);
 			
 		} catch (NullPointerException e) {
-			System.out.println("Error in  treewalker!");
+			System.out.println("Error in treewalker!");
 		}
 	}
 

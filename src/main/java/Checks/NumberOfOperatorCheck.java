@@ -1,7 +1,7 @@
 package Checks;
 
 
-import java.util.Arrays;
+
 import java.util.HashSet;
 import com.puppycrawl.tools.checkstyle.api.*;
 

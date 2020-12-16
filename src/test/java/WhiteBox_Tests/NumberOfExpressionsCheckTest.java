@@ -4,6 +4,10 @@ import org.junit.Test;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
@@ -63,7 +67,31 @@ public class NumberOfExpressionsCheckTest {
 	public void NoExpressionTest() {
 		expressioncheck.beginTree(ast);
 
+		doReturn(0).when(ast).getChildCount();
 		assertEquals(0, expressioncheck.getCount());
 	}
 
+	@Test // Test Exception and exception message.
+	public void ExpressionTest1() {
+		
+		NumberOfExpressionsCheck test = spy(NumberOfExpressionsCheck.class);
+		DetailAST ast = mock(DetailAST.class);
+		
+	     final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+	     System.setOut(new PrintStream(outputStreamCaptor));
+		
+		test.beginTree(ast); 
+		test.finishTree(ast);
+			
+		doThrow(NullPointerException.class).when(test).finishTree(null);
+		assertEquals("Error from treewalker!",outputStreamCaptor.toString().trim());
+		
+	}
+	
+	@Test // Tests helper token function.
+	public void ExpressionTokenTest() {
+		expressioncheck.beginTree(ast);
+		doReturn(-1).when(ast).getChildCount();
+		assertEquals(0, expressioncheck.getCount());
+	}
 }

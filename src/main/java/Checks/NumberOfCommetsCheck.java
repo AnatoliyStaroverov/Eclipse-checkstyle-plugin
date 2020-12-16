@@ -8,9 +8,7 @@ public class NumberOfCommetsCheck extends AbstractCheck {
 	
 	int count;
 	
-	public int getCount() {
-		return this.count;
-	}
+	
 	
 	  @Override
 	    public void beginTree(DetailAST rootAST) {
@@ -46,7 +44,11 @@ public class NumberOfCommetsCheck extends AbstractCheck {
 	  
 	  @Override
 	    public void finishTree(DetailAST rootAST) {
+		  try {
 	       log(rootAST.getLineNo(),count+"");
+		  } catch (NullPointerException e) {
+				System.out.println("Error from treewalker!");
+			}
 	    }
 	  
 		@Override

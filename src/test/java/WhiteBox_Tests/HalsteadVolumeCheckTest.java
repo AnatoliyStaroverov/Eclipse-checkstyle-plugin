@@ -11,6 +11,8 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import Checks.HalsteadVolumeCheck;
 
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -24,7 +26,7 @@ import java.util.stream.Collectors;
 	
 
 public class HalsteadVolumeCheckTest {
-	
+	 
 	Integer[] tokens = { /* Unary Operator Type*/	
 			TokenTypes.POST_INC,TokenTypes.POST_DEC,TokenTypes.DEC,TokenTypes.INC,
 			TokenTypes.LNOT,TokenTypes.BNOT,TokenTypes.UNARY_MINUS,TokenTypes.UNARY_PLUS,
@@ -110,5 +112,53 @@ public class HalsteadVolumeCheckTest {
 		assertEquals(191.15, test.getHalsteadVolume(), 0.1);
 	}
 
+	@Test // Test visit tokens functions to makes sure wrong tokens dont count.
+	public void TestVisitTokens() {
+		
+		HalsteadVolumeCheck test = spy(new HalsteadVolumeCheck());
+		DetailAST ast = mock(DetailAST.class);
+		test.beginTree(ast);
+		
+		doReturn(TokenTypes.LITERAL_FOR).when(ast).getType(); 
+		doReturn("forloop").when(ast).getText();
+		
+		assertEquals(0.0, test.getHalsteadVolume(), 0.1);
+		assertEquals(0, test.getHalsteadLength());
+		assertEquals(0, test.getHalsteadVocabulary());
+	}
 	
+	/*@Test // Test Exception and exception message.
+	public void NumCommentsTest1() {
+		
+		HalsteadVolumeCheck test = spy(HalsteadVolumeCheck.class);
+		DetailAST ast = mock(DetailAST.class);
+		
+	     final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+	     System.setOut(new PrintStream(outputStreamCaptor));
+		
+		test.beginTree(ast); 
+		test.finishTree(ast);
+			
+		doThrow(NullPointerException.class).when(test).finishTree(null);
+		assertEquals("Error from treewalker!\n(finish tree) Error from treewalker!\nError from treewalker!",outputStreamCaptor.toString().trim());
+		
+	}*/
+	
+	@Test // Test halstead voc and length.
+	public void NumCommentsTest2() {
+		
+		HalsteadVolumeCheck test = spy(HalsteadVolumeCheck.class);
+		DetailAST ast = mock(DetailAST.class);
+		
+		test.beginTree(ast); 
+		
+		doReturn(0).when(test).getHalsteadLength();
+		doReturn(0).when(test).getHalsteadVocabulary();
+		
+		test.finishTree(ast);
+			
+		assertEquals(0,test.getHalsteadLength());
+		assertEquals(0,test.getHalsteadVocabulary());
+		
+	}
 }

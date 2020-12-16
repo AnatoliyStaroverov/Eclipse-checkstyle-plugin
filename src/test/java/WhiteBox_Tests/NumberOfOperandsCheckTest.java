@@ -2,8 +2,12 @@ package WhiteBox_Tests;
 
 
 import org.junit.Test;
+
+
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+
+
 import static org.mockito.Mockito.*;
 
 import java.io.ByteArrayOutputStream;
@@ -13,7 +17,7 @@ import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 import Checks.NumberOfOperandsCheck;
-import junit.framework.Assert;
+
 
 
 public class NumberOfOperandsCheckTest {
@@ -113,25 +117,20 @@ public class NumberOfOperandsCheckTest {
 		
 	}
 	
-	
-	@Test(expected=NullPointerException.class)// Test for exceptions in finishTree
-	public void ExceptionTest() throws Exception{
-		NumberOfOperandsCheck test = spy(new NumberOfOperandsCheck());
+	@Test // Test Exception and exception message.
+	public void OperandTest1() {
+		
+		NumberOfOperandsCheck test = spy(NumberOfOperandsCheck.class);
 		DetailAST ast = mock(DetailAST.class);
 		
-		doThrow(new NullPointerException()).when(test).finishTree(ast);
+	     final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+	     System.setOut(new PrintStream(outputStreamCaptor));
+		
+		test.beginTree(ast); 
 		test.finishTree(ast);
-		
-		final PrintStream standardOut = System.out;
-		final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-		System.setOut(new PrintStream(outputStreamCaptor));
-		
-		assertEquals("Error from treewalker!", outputStreamCaptor.toString()
-			      .trim());
-		
-		
-		
-		
-	}
+			
+		doThrow(NullPointerException.class).when(test).finishTree(null);
+		assertEquals("Error from treewalker!",outputStreamCaptor.toString().trim());
 	
+	}
 }
